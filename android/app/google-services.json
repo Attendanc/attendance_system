@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "908419915573",
+    "project_id": "adscencesystem",
+    "storage_bucket": "adscencesystem.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:908419915573:android:b562fcd188909ec48b767c",
+        "android_client_info": {
+          "package_name": "com.example.graduation_project"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "908419915573-ka6tk1m5a3o5pm20gh5vp9mo2cnjt8cm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.graduation_project",
+            "certificate_hash": "ae5ad756974f8c7972d9dcd83acbf1e9d4d16552"
+          }
+        },
+        {
+          "client_id": "908419915573-ai462vb66hkehfuf7pv3f58u0f8u4d9n.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDWZL_Buu5Kl0n07IA3M4YyAvBv3m6zX-0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "908419915573-ai462vb66hkehfuf7pv3f58u0f8u4d9n.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
