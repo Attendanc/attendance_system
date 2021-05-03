@@ -1,5 +1,7 @@
 import 'dart:ui';
 
+import 'package:flutter/material.dart';
+
 const primary = Color(0xFF1a237e);
 const primaryDark = Color(0xFF000051);
 const primaryLight = Color(0xFF534bae);
@@ -26,6 +28,22 @@ const String kPhoneNumberNullError = "Please Enter your phone number";
 const String kInvalidPhoneNumberError = "Please Enter Valid Phone Number";
 const String kAddressNullError = "Please Enter your address";
 const String kItemNullError = "Please Enter An Item";
+
+ThemeData buildTheme() {
+  final ThemeData base = ThemeData();
+  return base.copyWith(
+    hintColor: Colors.grey,
+    primaryColor: Colors.grey,
+    inputDecorationTheme: InputDecorationTheme(
+      hintStyle: TextStyle(
+        color: Colors.grey[500],
+      ),
+      labelStyle: TextStyle(
+        color: Colors.grey[500],
+      ),
+    ),
+  );
+}
 
 // Firebase Errors
 //Conditions

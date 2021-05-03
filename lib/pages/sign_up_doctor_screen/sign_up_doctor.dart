@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:graduation_project/pages/departments_screen/depatment.dart';
 import 'package:graduation_project/pages/log_in_screen/log_in.dart';
+import 'package:graduation_project/pages/my_raws_screen/my_raws_page.dart';
 import 'package:graduation_project/provider/doctor_provider.dart';
 import 'package:graduation_project/utilities/constants.dart';
 import 'package:provider/provider.dart';
@@ -15,6 +16,9 @@ class DoctorSignUp extends StatefulWidget {
 
 class _DoctorSignUpState extends State<DoctorSignUp> {
   static String routeName = '/deparment';
+
+  bool isShown1 = true;
+  bool isShown2 = true;
 
   String nameTextFieldValue;
   String emailTexttFieldValue;
@@ -41,7 +45,8 @@ class _DoctorSignUpState extends State<DoctorSignUp> {
                 password: passwordTextFieldValue.toString());
 
         if (result['success']) {
-          Navigator.pushNamed(context, DepartmentScreen.routeName);
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => MyRawsScreen()));
         } else {
           if (result['error'].toString().contains(kNetworkFieldCond)) {
             _showMyDialog('kNetworkFieldMessage');
@@ -82,8 +87,8 @@ class _DoctorSignUpState extends State<DoctorSignUp> {
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      child: SingleChildScrollView(
+    return Scaffold(
+      body: SingleChildScrollView(
         child: Container(
           color: Colors.white,
           child: Column(
@@ -111,10 +116,11 @@ class _DoctorSignUpState extends State<DoctorSignUp> {
               Padding(padding: const EdgeInsets.all(8.0), child: BuildName()),
               Padding(padding: const EdgeInsets.all(8.0), child: BuildEmail()),
               Padding(
-                  padding: const EdgeInsets.all(8.0), child: BuildPassword()),
+                  padding: const EdgeInsets.all(8.0),
+                  child: BuildPasswordField()),
               Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: BuildConfirmPassword()),
+                  child: BuildConfirmPasswordField()),
               Container(
                   width: MediaQuery.of(context).size.width,
                   margin: EdgeInsets.all(15.0),
@@ -173,86 +179,98 @@ class _DoctorSignUpState extends State<DoctorSignUp> {
   }
 
   Widget BuildEmail() {
-    return Card(
-        elevation: 5.0,
-        child: ListTile(
-          leading: Icon(
+    return TextField(
+      decoration: new InputDecoration(
+          labelText: 'Email',
+          border: OutlineInputBorder(),
+          prefixIcon: Icon(
             Icons.email,
             color: primaryLight,
           ),
-          title: TextField(
-            decoration: InputDecoration(
-              hintText: 'Email',
-              border: InputBorder.none,
-              hintStyle: TextStyle(color: primaryLight),
-            ),
-            onChanged: (value) {
-              emailTexttFieldValue = value;
-            },
-          ),
-        ));
+          enabledBorder: const OutlineInputBorder(
+            borderSide: const BorderSide(color: Colors.grey, width: 1.0),
+          )),
+      onChanged: (value) {
+        emailTexttFieldValue = value;
+      },
+    );
+  }
+
+  Widget BuildPasswordField() {
+    return TextField(
+      obscureText: isShown1,
+      decoration: InputDecoration(
+        hintText: 'password',
+        prefixIcon: Icon(
+          Icons.lock,
+          color: primaryLight,
+        ),
+        border: OutlineInputBorder(),
+        enabledBorder: const OutlineInputBorder(
+          borderSide: const BorderSide(color: Colors.grey, width: 1.0),
+        ),
+        suffixIcon: IconButton(
+          icon: Icon(isShown1 ? Icons.visibility_off : Icons.visibility),
+          onPressed: showOrHide1,
+        ),
+      ),
+      onChanged: (value) {
+        passwordTextFieldValue = value;
+      },
+    );
+  }
+
+  Widget BuildConfirmPasswordField() {
+    return TextField(
+      obscureText: isShown2,
+      decoration: InputDecoration(
+        hintText: 'confirm password',
+        prefixIcon: Icon(
+          Icons.lock,
+          color: primaryLight,
+        ),
+        border: OutlineInputBorder(),
+        enabledBorder: const OutlineInputBorder(
+          borderSide: const BorderSide(color: Colors.grey, width: 1.0),
+        ),
+        suffixIcon: IconButton(
+          icon: Icon(isShown2 ? Icons.visibility_off : Icons.visibility),
+          onPressed: showOrHide2,
+        ),
+      ),
+      onChanged: (value) {
+        confirmPasswordTextFieldValue = value;
+      },
+    );
   }
 
   Widget BuildName() {
-    return Card(
-        elevation: 5.0,
-        child: ListTile(
-          leading: Icon(
+    return TextField(
+      decoration: new InputDecoration(
+          labelText: 'Name',
+          border: OutlineInputBorder(),
+          prefixIcon: Icon(
             Icons.person,
             color: primaryLight,
           ),
-          title: TextField(
-            decoration: InputDecoration(
-              hintText: 'Name',
-              border: InputBorder.none,
-              hintStyle: TextStyle(color: primaryLight),
-            ),
-            onChanged: (value) {
-              nameTextFieldValue = value;
-            },
-          ),
-        ));
+          enabledBorder: const OutlineInputBorder(
+            borderSide: const BorderSide(color: Colors.grey, width: 1.0),
+          )),
+      onChanged: (value) {
+        nameTextFieldValue = value;
+      },
+    );
   }
 
-  Widget BuildPassword() {
-    return Card(
-        elevation: 5.0,
-        child: ListTile(
-          leading: Icon(
-            Icons.vpn_key,
-            color: primaryLight,
-          ),
-          title: TextField(
-            decoration: InputDecoration(
-              hintText: 'Password',
-              border: InputBorder.none,
-              hintStyle: TextStyle(color: primaryLight),
-            ),
-            onChanged: (value) {
-              passwordTextFieldValue = value;
-            },
-          ),
-        ));
+  showOrHide1() {
+    setState(() {
+      isShown1 = !isShown1;
+    });
   }
 
-  Widget BuildConfirmPassword() {
-    return Card(
-        elevation: 5.0,
-        child: ListTile(
-          leading: Icon(
-            Icons.vpn_key,
-            color: primaryLight,
-          ),
-          title: TextField(
-            decoration: InputDecoration(
-              hintText: 'Confirm Password',
-              border: InputBorder.none,
-              hintStyle: TextStyle(color: primaryLight),
-            ),
-            onChanged: (value) {
-              confirmPasswordTextFieldValue = value;
-            },
-          ),
-        ));
+  showOrHide2() {
+    setState(() {
+      isShown2 = !isShown2;
+    });
   }
 }

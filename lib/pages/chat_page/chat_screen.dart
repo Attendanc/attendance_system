@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:graduation_project/utilities/constants.dart';
-
 import 'components/body.dart';
 
 class ChatScreen extends StatefulWidget {

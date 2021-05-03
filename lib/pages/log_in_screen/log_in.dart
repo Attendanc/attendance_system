@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:graduation_project/pages/departments_screen/depatment.dart';
 import 'package:graduation_project/pages/forget_password/forget_password.dart';
 import 'package:graduation_project/pages/lectureres_students_screen/lectureres_students.dart';
-import 'package:graduation_project/pages/sign_up_doctor_screen/components/sign_up_card.dart';
+import 'package:graduation_project/pages/my_raws_screen/my_raws_page.dart';
+import 'package:graduation_project/pages/raws_student/raws_student_page.dart';
 import 'package:graduation_project/provider/doctor_provider.dart';
 import 'package:graduation_project/provider/lecture_provider.dart';
 import 'package:graduation_project/provider/student_provider.dart';
@@ -23,6 +23,8 @@ class _LogInScreenState extends State<LogInScreen> {
   String emailTextField;
   String passwordTextFied;
 
+  bool isShown = true;
+
   @override
   void initState() {
     super.initState();
@@ -40,7 +42,8 @@ class _LogInScreenState extends State<LogInScreen> {
               password: passwordTextFied.toString());
 
       if (result['success']) {
-        Navigator.pushNamed(context, DepartmentScreen.routeName);
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => MyRawsScreen()));
       } else {
         if (result['error'].toString().contains(kNetworkFieldCond)) {
           _showMyDialog('kNetworkFieldMessage');
@@ -61,7 +64,9 @@ class _LogInScreenState extends State<LogInScreen> {
               password: passwordTextFied.toString());
 
       if (result['success']) {
-        Navigator.pushNamed(context, LecturersStudentsScreen.routeName);
+        //  Navigator.pushNamed(context, LecturersStudentsScreen.routeName);
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => RawsStudentsPage()));
       } else {
         if (result['error'].toString().contains(kNetworkFieldCond)) {
           _showMyDialog('kNetworkFieldMessage');
@@ -129,46 +134,10 @@ class _LogInScreenState extends State<LogInScreen> {
             SizedBox(
               height: 20,
             ),
+            Padding(padding: const EdgeInsets.all(8.0), child: BuildEmail()),
             Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Card(
-                    elevation: 5.0,
-                    child: ListTile(
-                      leading: Icon(
-                        Icons.email,
-                        color: primaryLight,
-                      ),
-                      title: TextField(
-                        decoration: InputDecoration(
-                          hintText: 'Email',
-                          border: InputBorder.none,
-                          hintStyle: TextStyle(color: primaryLight),
-                        ),
-                        onChanged: (value) {
-                          emailTextField = value;
-                        },
-                      ),
-                    ))),
-            Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Card(
-                    elevation: 5.0,
-                    child: ListTile(
-                      leading: Icon(
-                        Icons.vpn_key,
-                        color: primaryLight,
-                      ),
-                      title: TextField(
-                        decoration: InputDecoration(
-                          hintText: 'password',
-                          border: InputBorder.none,
-                          hintStyle: TextStyle(color: primaryLight),
-                        ),
-                        onChanged: (value) {
-                          passwordTextFied = value;
-                        },
-                      ),
-                    ))),
+                child: BuildPasswordField()),
             Container(
                 width: MediaQuery.of(context).size.width,
                 margin: EdgeInsets.all(15.0),
@@ -212,5 +181,53 @@ class _LogInScreenState extends State<LogInScreen> {
             ),
           ])),
     );
+  }
+
+  Widget BuildPasswordField() {
+    return TextField(
+      obscureText: isShown,
+      decoration: InputDecoration(
+        hintText: 'password',
+        prefixIcon: Icon(
+          Icons.lock,
+          color: primaryLight,
+        ),
+        border: OutlineInputBorder(),
+        enabledBorder: const OutlineInputBorder(
+          borderSide: const BorderSide(color: Colors.grey, width: 1.0),
+        ),
+        suffixIcon: IconButton(
+          icon: Icon(isShown ? Icons.visibility_off : Icons.visibility),
+          onPressed: showOrHide,
+        ),
+      ),
+      onChanged: (value) {
+        passwordTextFied = value;
+      },
+    );
+  }
+
+  Widget BuildEmail() {
+    return TextField(
+      decoration: new InputDecoration(
+          labelText: 'Email',
+          border: OutlineInputBorder(),
+          prefixIcon: Icon(
+            Icons.email,
+            color: primaryLight,
+          ),
+          enabledBorder: const OutlineInputBorder(
+            borderSide: const BorderSide(color: Colors.grey, width: 1.0),
+          )),
+      onChanged: (value) {
+        emailTextField = value;
+      },
+    );
+  }
+
+  showOrHide() {
+    setState(() {
+      isShown = !isShown;
+    });
   }
 }

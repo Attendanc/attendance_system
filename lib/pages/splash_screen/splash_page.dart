@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:graduation_project/database/database.dart';
 import 'package:graduation_project/pages/intro_screen/intro_screen_component.dart';
 import 'package:graduation_project/services/facenet.service.dart';
@@ -54,6 +55,10 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      statusBarColor: primaryLight, //or set color with: Color(0xFF0000FF)
+    ));
+
     return Scaffold(
       body: SafeArea(
         child: Container(

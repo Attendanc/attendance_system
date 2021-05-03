@@ -5,6 +5,7 @@ import 'package:graduation_project/provider/chat_provider.dart';
 import 'package:graduation_project/provider/doctor_provider.dart';
 import 'package:graduation_project/provider/lecture_provider.dart';
 import 'package:graduation_project/provider/student_provider.dart';
+import 'package:graduation_project/utilities/constants.dart';
 import 'package:graduation_project/utilities/routes.dart';
 import 'package:provider/provider.dart';
 
@@ -39,6 +40,7 @@ class MyApp extends StatelessWidget {
         },
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
+          theme: buildTheme(),
           initialRoute: SplashScreen.routeName,
           routes: routes,
         ),

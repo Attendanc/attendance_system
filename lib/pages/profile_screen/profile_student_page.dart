@@ -56,26 +56,16 @@ class _ProfileStudentPageState extends State<ProfileStudentPage> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         elevation: 0.0,
-        title: Text(student.name),
+        title: Text(
+          student.name,
+          style: TextStyle(color: Colors.black),
+        ),
+        actionsIconTheme: IconThemeData(color: Colors.black),
         centerTitle: true,
-        backgroundColor: secondaryLight,
-        iconTheme: IconThemeData(color: primaryDark),
-        actions: [
-          Badge(
-            badgeContent: Text(lectures.length.toString()),
-            position: BadgePosition.topEnd(top: 10, end: 10),
-            animationType: BadgeAnimationType.scale,
-            child: IconButton(
-              icon: Icon(Icons.notifications),
-              color: primaryDark,
-              onPressed: () {
-                Navigator.pushNamed(context, NotificationPage.routeName);
-              },
-            ),
-          ),
-        ],
+        backgroundColor: Colors.white,
+        iconTheme: IconThemeData(color: Colors.black),
       ),
-      drawer: Drawer(
+      /* drawer: Drawer(
         child: ListView(
           padding: EdgeInsets.zero,
           children: [
@@ -109,16 +99,16 @@ class _ProfileStudentPageState extends State<ProfileStudentPage> {
             ),
           ],
         ),
-      ),
+      ),*/
       body: Container(
-        color: secondaryLight,
+        color: Colors.white,
         child: Center(
           child: SafeArea(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 SizedBox(
-                  height: 30,
+                  height: 15,
                 ),
                 Image.asset(
                   'assets/images/user.png',
@@ -165,7 +155,7 @@ class _ProfileStudentPageState extends State<ProfileStudentPage> {
                           ),
                           Text('Today Lecturers',
                               style:
-                                  TextStyle(fontSize: 20, color: Colors.white))
+                                  TextStyle(fontSize: 20, color: Colors.black))
                         ],
                       ),
                     ),
@@ -191,7 +181,7 @@ class _ProfileStudentPageState extends State<ProfileStudentPage> {
                           ),
                           Text('Search Students',
                               style:
-                                  TextStyle(fontSize: 20, color: Colors.white))
+                                  TextStyle(fontSize: 20, color: Colors.black))
                         ],
                       ),
                     ),
@@ -217,7 +207,7 @@ class _ProfileStudentPageState extends State<ProfileStudentPage> {
                           ),
                           Text('Public Chat',
                               style:
-                                  TextStyle(fontSize: 20, color: Colors.white))
+                                  TextStyle(fontSize: 20, color: Colors.black))
                         ],
                       ),
                     ),
@@ -243,7 +233,7 @@ class _ProfileStudentPageState extends State<ProfileStudentPage> {
                           ),
                           Text('All Lecturers',
                               style:
-                                  TextStyle(fontSize: 20, color: Colors.white))
+                                  TextStyle(fontSize: 20, color: Colors.black))
                         ],
                       ),
                     ),
@@ -275,7 +265,7 @@ class _ProfileStudentPageState extends State<ProfileStudentPage> {
                           ),
                           Text(
                             'LogOut',
-                            style: TextStyle(fontSize: 20, color: Colors.white),
+                            style: TextStyle(fontSize: 20, color: Colors.black),
                           )
                         ],
                       ),

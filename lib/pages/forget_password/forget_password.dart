@@ -32,15 +32,7 @@ class _ForgetPassPageState extends State<ForgetPassPage> {
               ),
               Container(
                 margin: EdgeInsets.all(16),
-                child: TextField(
-                  onChanged: (value) {
-                    emailTextField = value;
-                  },
-                  decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                      labelText: 'Email',
-                      hintText: 'Email'),
-                ),
+                child: BuildEmail(),
               ),
               SizedBox(
                 height: 15,
@@ -74,6 +66,25 @@ class _ForgetPassPageState extends State<ForgetPassPage> {
           ),
         ),
       ),
+    );
+  }
+
+  Widget BuildEmail() {
+    return TextField(
+      decoration: new InputDecoration(
+          labelText: 'Email',
+          hintText: 'Email',
+          border: OutlineInputBorder(),
+          prefixIcon: Icon(
+            Icons.email,
+            color: primaryLight,
+          ),
+          enabledBorder: const OutlineInputBorder(
+            borderSide: const BorderSide(color: Colors.grey, width: 1.0),
+          )),
+      onChanged: (value) {
+        emailTextField = value;
+      },
     );
   }
 }

@@ -46,6 +46,8 @@ dependencies:
   flappy_search_bar: 1.4.1
   dio: 1.0.0
   image_picker:
+  keyboard_visibility: ^0.5.2
+
 
 
 

@@ -1,17 +1,8 @@
-import 'dart:io';
-
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
-import 'package:graduation_project/database/database.dart';
-import 'package:graduation_project/pages/departments_screen/depatment.dart';
 import 'package:graduation_project/pages/detection/detection_signup_screen.dart';
-import 'package:graduation_project/pages/lectureres_students_screen/lectureres_students.dart';
 import 'package:graduation_project/pages/log_in_screen/log_in.dart';
-import 'package:graduation_project/pages/sign_up_doctor_screen/components/sign_up_card.dart';
-import 'package:graduation_project/pages/sign_up_student_screen/components/select_department.dart';
 import 'package:graduation_project/provider/student_provider.dart';
-import 'package:graduation_project/services/facenet.service.dart';
-import 'package:graduation_project/services/ml_vision_service.dart';
 import 'package:graduation_project/utilities/constants.dart';
 import 'package:provider/provider.dart';
 
@@ -28,6 +19,9 @@ class StudentSignUp extends StatefulWidget {
 
 class _StudentSignUpState extends State<StudentSignUp> {
   CameraDescription cameraDescription;
+
+  bool isShown1 = true;
+  bool isShown2 = true;
 
   /// for dropdown menu
   String initialDepartment = departments[0];
@@ -157,12 +151,9 @@ class _StudentSignUpState extends State<StudentSignUp> {
                 SizedBox(
                   height: 10,
                 ),
+                Padding(padding: const EdgeInsets.all(8.0), child: BuildName()),
                 Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: BuildNameField()),
-                Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: BuildEmailField()),
+                    padding: const EdgeInsets.all(8.0), child: BuildEmail()),
                 Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: BuildNumberField()),
@@ -172,10 +163,6 @@ class _StudentSignUpState extends State<StudentSignUp> {
                 Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: BuildConfirmPasswordField()),
-                Padding(
-                    padding: EdgeInsets.all(8.0), child: DepartmentsDropDown()),
-                Padding(
-                    padding: EdgeInsets.all(8.0), child: SectionsDropDown()),
                 Container(
                     width: MediaQuery.of(context).size.width,
                     margin: EdgeInsets.all(15.0),
@@ -235,112 +222,109 @@ class _StudentSignUpState extends State<StudentSignUp> {
     );
   }
 
-  Widget BuildEmailField() {
-    return Card(
-        elevation: 5.0,
-        child: ListTile(
-          leading: Icon(
+  Widget BuildEmail() {
+    return TextField(
+      decoration: new InputDecoration(
+          labelText: 'Email',
+          border: OutlineInputBorder(),
+          prefixIcon: Icon(
             Icons.email,
             color: primaryLight,
           ),
-          title: TextField(
-            decoration: InputDecoration(
-              hintText: 'Email',
-              border: InputBorder.none,
-              hintStyle: TextStyle(color: primaryLight),
-            ),
-            onChanged: (value) {
-              emailTexttFieldValue = value;
-            },
-          ),
-        ));
+          enabledBorder: const OutlineInputBorder(
+            borderSide: const BorderSide(color: Colors.grey, width: 1.0),
+          )),
+      onChanged: (value) {
+        emailTexttFieldValue = value;
+      },
+    );
   }
 
-  Widget BuildNameField() {
-    return Card(
-        elevation: 5.0,
-        child: ListTile(
-          leading: Icon(
+  Widget BuildName() {
+    return TextField(
+      decoration: new InputDecoration(
+          labelText: 'Name',
+          border: OutlineInputBorder(),
+          prefixIcon: Icon(
             Icons.person,
             color: primaryLight,
           ),
-          title: TextField(
-            decoration: InputDecoration(
-              hintText: 'Name',
-              border: InputBorder.none,
-              hintStyle: TextStyle(color: primaryLight),
-            ),
-            onChanged: (value) {
-              nameTextFieldValue = value;
-            },
-          ),
-        ));
+          enabledBorder: const OutlineInputBorder(
+            borderSide: const BorderSide(color: Colors.grey, width: 1.0),
+          )),
+      onChanged: (value) {
+        nameTextFieldValue = value;
+      },
+    );
   }
 
   Widget BuildNumberField() {
-    return Card(
-        elevation: 5.0,
-        child: ListTile(
-          leading: Icon(
-            Icons.account_box,
+    return TextField(
+      decoration: new InputDecoration(
+          labelText: 'Seat Number',
+          border: OutlineInputBorder(),
+          prefixIcon: Icon(
+            Icons.person,
             color: primaryLight,
           ),
-          title: TextField(
-            decoration: InputDecoration(
-              hintText: 'Number',
-              border: InputBorder.none,
-              hintStyle: TextStyle(color: primaryLight),
-            ),
-            onChanged: (value) {
-              numberTextFieldValue = value;
-            },
-          ),
-        ));
+          enabledBorder: const OutlineInputBorder(
+            borderSide: const BorderSide(color: Colors.grey, width: 1.0),
+          )),
+      onChanged: (value) {
+        numberTextFieldValue = value;
+      },
+    );
   }
 
   Widget BuildPasswordField() {
-    return Card(
-        elevation: 5.0,
-        child: ListTile(
-          leading: Icon(
-            Icons.vpn_key,
-            color: primaryLight,
-          ),
-          title: TextField(
-            decoration: InputDecoration(
-              hintText: 'Password',
-              border: InputBorder.none,
-              hintStyle: TextStyle(color: primaryLight),
-            ),
-            onChanged: (value) {
-              passwordTextFieldValue = value;
-            },
-          ),
-        ));
+    return TextField(
+      obscureText: isShown1,
+      decoration: InputDecoration(
+        hintText: 'password',
+        prefixIcon: Icon(
+          Icons.lock,
+          color: primaryLight,
+        ),
+        border: OutlineInputBorder(),
+        enabledBorder: const OutlineInputBorder(
+          borderSide: const BorderSide(color: Colors.grey, width: 1.0),
+        ),
+        suffixIcon: IconButton(
+          icon: Icon(isShown1 ? Icons.visibility_off : Icons.visibility),
+          onPressed: showOrHide1,
+        ),
+      ),
+      onChanged: (value) {
+        passwordTextFieldValue = value;
+      },
+    );
   }
 
   Widget BuildConfirmPasswordField() {
-    return Card(
-        elevation: 5.0,
-        child: ListTile(
-          leading: Icon(
-            Icons.vpn_key,
-            color: primaryLight,
-          ),
-          title: TextField(
-            decoration: InputDecoration(
-              hintText: 'Confirm Password',
-              border: InputBorder.none,
-              hintStyle: TextStyle(color: primaryLight),
-            ),
-            onChanged: (value) {
-              confirmPasswordTextFieldValue = value;
-            },
-          ),
-        ));
+    return TextField(
+      obscureText: isShown2,
+      decoration: InputDecoration(
+        hintText: 'confirm password',
+        prefixIcon: Icon(
+          Icons.lock,
+          color: primaryLight,
+        ),
+        border: OutlineInputBorder(),
+        enabledBorder: const OutlineInputBorder(
+          borderSide: const BorderSide(color: Colors.grey, width: 1.0),
+        ),
+        suffixIcon: IconButton(
+          icon: Icon(isShown2 ? Icons.visibility_off : Icons.visibility),
+          onPressed: showOrHide2,
+        ),
+      ),
+      onChanged: (value) {
+        confirmPasswordTextFieldValue = value;
+      },
+    );
   }
 
-  ///widgets in screen
+/*  ///widgets in screen
   Widget DepartmentsDropDown() {
     return Card(
         elevation: 5.0,
@@ -413,5 +397,16 @@ class _StudentSignUpState extends State<StudentSignUp> {
             }).toList(),
           ),
         ));
+  }*/
+  showOrHide1() {
+    setState(() {
+      isShown1 = !isShown1;
+    });
+  }
+
+  showOrHide2() {
+    setState(() {
+      isShown2 = !isShown2;
+    });
   }
 }
